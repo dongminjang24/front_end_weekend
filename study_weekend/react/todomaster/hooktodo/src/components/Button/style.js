@@ -51,6 +51,7 @@ const sizeCSS = {
 };
 
 const Button = styled.button`
+   
     ${({ variant }) => variantCSS[variant]}
     ${({ shape }) => shapeCSS[shape]}
     ${({ size }) => sizeCSS[size]}
@@ -60,6 +61,8 @@ const Button = styled.button`
     :hover {
         opacity: 0.7;
     }
+    background-color: ${({disabled}) => disabled ===true ? 'black' : null}
+    
 `;
 export default Button;
 // <BascitButton size={'medium'} >
