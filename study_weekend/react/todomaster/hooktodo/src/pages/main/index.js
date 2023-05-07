@@ -4,15 +4,16 @@ import SignUpForm from "./components/SignUp/SignUp";
 import { flexCenter } from "../../styles/common";
 import { PALLET } from "../../styles/theme";
 import theme from "../../styles/theme";
+import { useState } from "react";
 
 const MainPage = () => {
-  let isFormLogin = true;
-
+  // let isFormLogin = true;
+  const [isFormLogin,setIsFormLogin] = useState(true)
   const onClickFormHeader = (e) => {
     const { innerText } = e.target;
     console.log(innerText);
-    if (innerText === "LOGIN") return (isFormLogin = true);
-    isFormLogin = false;
+    if (innerText === "LOGIN") return (setIsFormLogin(true) );
+    setIsFormLogin(false)
     console.log(isFormLogin);
   };
 
