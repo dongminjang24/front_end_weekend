@@ -1,22 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
-import MainPage from "../pages/main"
-import Todo from "../pages/todo/todo"
-import Layout from "../components/Layout";
+import { createBrowserRouter } from 'react-router-dom'
+import MainPage from '../pages/main'
+import TodoPage from '../pages/todo'
+import Layout from '../components/Layout'
 
-// 구조분해할당
+// export const router = createBrowserRouter([])
 const router = createBrowserRouter([
     {
-        // path:'/',
-        element:<Layout></Layout>,
-        children:[
-    {path:'/',
-    element: <MainPage></MainPage>
-},
-    {path:'/todo/:todoId',
-    element: <Todo></Todo>
+        element: <Layout/>,
+        children: [
+            {
+                path: '/',
+                element: <MainPage/>
+            },
+            {
+                path: '/todo/:todoId',
+                element: <TodoPage/>
+            },
+        ]
     }
-]
-}
 ])
 
+/* 기본값 */
 export default router
