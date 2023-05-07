@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function thisPrint(){
+        console.log(this)
+        const method = {
+            print(){
+                console.log(this) //method
+            }
+        }
+    } //함수의 주인이 나오게 되고,그건 브라우저임.
+
+    class thisClass{
+        print(){
+            console.log(this)
+        }
+    }
+    
+    console.log(this) //window브라우저
+    function thisName(이름){
+        this.name=이름;
+        console.log(this);
+        this.logName= function(age){
+            console.log(this.name,age)
+        }
+    }
+    
+    const 성용 = new thisName('성용');
+    const 예슬 = new thisName('예슬');
+    성용.logName(20); // 성용 , 20
+    예슬.logName(21); // 예슬, 21
+
+    //new 연산자를 통한 새로운 인스턴스이기 때문
+    //apply,call,bind 
+    성용.logName.call(예슬,19) //예슬 19
+    예슬.logName.apply({name:'성용'},[20])
+</script>
+</html>

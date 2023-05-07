@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      .content {
+        width: 1024px;
+      }
+
+      .disp {
+        height: 200px;
+        border: 1px solid black;
+      }
+
+      .tab_host {
+        display: flex;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .tab:hover {
+        cursor: pointer;
+      }
+
+      .tab {
+        width: 200px;
+        border: 1px solid #ededed;
+      }
+
+      #list {
+        border: 1px solid #ededed;
+      }
+    </style>
+  </head>
+  <body>
+      <p>
+        4. 아래의 입력창에 숫자가 입력되지 않도록 하고 길이 제한은 10자로 하시오. <br />숫자가 입력된다면 숫자가 입력되었다고 alert로
+        알려주시오
+      </p>
+      <input type="text" id="te_input" maxlength="9" placeholder="글자만 입력하세요." />
+
+      <p>
+        5.아래의 입력창에 입력 후 저장 버튼을 누르거나 엔터키를 누르면 입력한 내용이 아래의 list에 추가 되도록 하시오. <br />초기화 버튼을
+        누르면 list안의 모든 내용이 지워져야 함
+      </p>
+      <h5>6.추가된 내용을 "각 각" 수정 및 삭제 수 있게 변경하시오.</h5>
+      <form id="form">
+        <input type="text" value="" width="600" id="list_data" name="content" />
+        <button type="submit" id="send" value="show_view">저장</button>
+        <button type="reset">초기화</button>
+        <button type="test">조회</button>
+
+        <p>리스트</p>
+        <ul id="list">
+          <li class="liclass">list
+            <button type="button" class="amend" onclick="test()">수정</button>
+            <button type="button" class="delete" onclick="deleteList()">삭제</button>
+          </li>
+          <li class="liclass">list
+            <button type="button" class="amend" onclick="test()">수정</button>
+            <button type="button" class="delete" onclick="deleteList()">삭제</button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </body>
+  <script>
+    const inputText = document.querySelector('#te_input')
+
+    inputText.addEventListener('input',()=>{
+      let regex = /[^0-9]/g;	
+      let strRegex =/[0-9]/g;
+      let numResult = inputText.value.replace(regex, "");
+      let strResult = inputText.value.replace(strRegex, "");
+      if (strResult.length<=10){
+        inputText.value =  strResult
+      }else{
+        inputText.value =  strResult.substring(0,strResult.length-1)
+      }
+      if (numResult.length>0){
+        alert('숫자를 입력했습니다.')
+      }
+    })
+
+    const container = document.querySelector('#list')
+    const formSubmit = document.querySelector('#form')
+    const createListValue = document.querySelector('#list_data')
+    const saveBtn = document.querySelector('#send')
+    const cancelBtn = document.querySelector("button[type='reset']")
+
+    formSubmit.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      let inputList = createListValue.value;
+      let li = document.createElement('li');
+      li.classList.add('liclass')
+      li.innerHTML = `
+        ${inputList}
+        <button type="button" class="ammend" onclick="test()">수정</button>
+            <button type="button" class="delete" onclick="deleteList()">삭제</button>
+       `;
+      container.appendChild(li);
+    })
+    cancelBtn.addEventListener('click',()=>{
+      let lists = container.querySelectorAll('li')
+      lists.forEach((v)=>{
+        v.remove()
+      })
+    })
+    
+    function test(){
+        const amendBtn = Array.from(document.getElementsByClassName('amend'))
+        // let lists = container.querySelectorAll('li')
+        let prompt = window.prompt('수정할 내용을 입력해주세요','수정내역')
+        //     lists[i].innerHTML = `<li class="liclass">
+        // ${prompt}
+        // <button type="button" class="ammend">수정</button>
+        //     <button type="button" class="delete" onclick="deleteList()">삭제</button>
+        // </li>`
+        event.target.parentElement.innerHTML=`
+        ${prompt}
+        <button type="button" class="ammend" onclick="test()" >수정</button>
+            <button type="button" class="delete" onclick="deleteList()">삭제</button>
+        `
+    }
+
+    function deleteList(){
+        const deleteBtn = Array.from(document.getElementsByClassName('delete'))
+        event.target.parentElement.remove()
+  
+    }
+
+
+
+  </script>
+</html>

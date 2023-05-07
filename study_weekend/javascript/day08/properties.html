@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //   window.onload = function () {
+      //     const $textIn = document.querySelector('#change');
+      //     console.log($textIn);
+      //     // $textIn.innerHTML = '변경';
+      //     $textIn.innerText = '변경';
+      //   };
+    </script>
+  </head>
+  <body>
+    <div id="change">페이지가 열리면 속성을 바꿉니다.</div>
+    <button>클릭하면 원래대로 돌아갑니다.</button>
+    <div>마우스가 올라가면 속성이 바뀝니다.</div>
+  </body>
+  <script>
+    const $textIn = document.querySelector('#change');
+
+    const $btn = document.querySelector('button');
+    $btn.addEventListener('click', function () {
+      $textIn.innerText = '페이지가 열리면 속성을 바꿉니다.';
+    });
+
+    const $div = document.querySelectorAll('div')[1];
+    console.log($div);
+    $div.addEventListener('mouseover', function () {
+      $textIn.innerHTML = '<span>배경화면 빨강으로 변경</span>';
+      //   $textIn.innerText = '<span>배경화면 빨강으로 변경</span>';
+
+      $textIn.style.backgroundColor = '#f00';
+    });
+    $div.addEventListener('mouseleave', function () {
+      $textIn.innerHTML = '<span>배경화면 파랑으로 변경</span>';
+      //   $textIn.innerText = '<span>배경화면 빨강으로 변경</span>';
+
+      $textIn.style.backgroundColor = '#00f';
+    });
+  </script>
+</html>

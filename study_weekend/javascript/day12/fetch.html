@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list"></div>
+</body>
+<script>
+    const BACKEND_URL='https://jsonplaceholder.typicode.com/posts'
+
+    fetch(BACKEND_URL,{
+        method:'GET'
+    }).then((res)=>res.json())
+    .then((res)=>{
+        console.log(res)
+        const $list = document.querySelector('.list')
+        $list.innerHTML = res.map((post)=>`
+        <div>
+            <div style='margin-bottom:30px;'> Title:${post.title}</div>
+            <div style='margin-bottom:30px;'>Body:${post.body}</div>
+        </div>
+            `).join('')
+    }   
+    )
+    const requestPosts = async()=>{
+        let res = await fetch(BACKEND_URL,{method:"GET"})
+        res = await res.json()
+        console.log(res)
+    }//promise
+    
+        requestPosts()
+
+    /*
+    함수형태로 만들어줘야 await을 씀
+    */
+
+       /*
+    fetch -> backend request -> response -> json parse -> (Promise) -> then or await
+    */
+</script>
+</html>

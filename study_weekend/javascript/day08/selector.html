@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script defer src="defer.js"></script>
+    <script>
+        //웹 브라우저가 열렸으면 실행시켜라
+        //웹 브라우저가 로드된이후의 실행해라
+        // 권장되지 않음. 무리가 감
+        // onload에 넣는 방식은 브라우저 엔진에 부담을 준다.
+        // 따라서 onload는 명확히 해당 브라우저가 실행되고 나서 실행되어야 하는 로직을 정의
+        window.onload = function(){
+            const idDom = document.getElementById('id');
+            const idSelector = document.querySelector('#id');
+            console.log(idDom, idSelector);
+            console.log(idSelector);
+        }
+    </script>
+  </head>
+  </head>
+  <body>
+    <div id="id">ID</div>
+    <div class="class">CLASS</div>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="post-list"></div>
+  </body>
+  <script>
+    const $postList = document.querySelector('.post-list');
+    let posts = [
+      {
+        id: 1,
+        title: 'title1',
+        content: 'content1'
+      },
+      {
+        id: 2,
+        title: 'title2',
+        content: 'content2'
+      },
+      {
+        id: 3,
+        title: 'title3',
+        content: 'content3'
+      }
+    ];
+
+    function renderPost(postArr) {
+      let postHtml = postArr
+        .map(
+          (post) => `<div data-role=${post.id}>
+            <div>${post.title}</div>
+            <div>${post.content}</div>
+            <button class="delete-post-btn">삭제</button>
+        </div>`
+        )
+        .join('');
+      $postList.innerHTML = postHtml;
+      // renderPost(posts);
+
+      // const postHtml = posts.map((post)=> `<div data-role=${post.id}>
+      //     <div>${post.title}</div>
+      //     <div>${post.content}</div>
+      //     <button class="delete-post-btn">삭제</button>
+      // </div>`).join('')
+      // $postList.innerHTML = postHtml
+
+      const $deletPostBtn = document.querySelectorAll('.delete-post-btn');
+      // console.log($deletPostBtn);
+
+      $deletPostBtn.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          // console.log(e.target.parentNode);
+          const parent = e.target.parentNode;
+          const targetId = parent.getAttribute('data-role');
+          const deletePost = posts.filter((post) => post.id !== parseInt(targetId, 10));
+          posts = deletePost;
+          // deletePost.map((post)=> `<div data-role=${post.id}>
+          //     <div>${post.title}</div>
+          //     <div>${post.content}</div>
+          //     <button class="delete-post-btn">삭제</button>
+          // </div>`).join('')
+          // $postList.innerHTML = postHtml
+
+          renderPost(deletePost);
+
+          /*
+            e -> 이벤트 객체
+            target -> 이벤트 대상
+            parentNode -> 이벤트 대상 부모 요소
+            */
+        });
+      });
+    }
+
+    renderPost(posts);
+  </script>
+</html>

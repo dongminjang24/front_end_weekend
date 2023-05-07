@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const BACKEND_URL='https://jsonplaceholder.typicode.com/posts'
+    const req = new XMLHttpRequest();
+    // req => http request 객체 생성
+    req.open('GET',BACKEND_URL) // get:url에 주소를 담아서  ,post:body에 담아서(데이터를 숨겨서)
+        //http request 객체에 GET으로 BACKEND_URL 등록
+    req.send();
+        //request message 전송 --> backendURL
+    req.addEventListener('load',(res)=>{
+        console.log(res.currentTarget.response)
+    })
+
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Practice</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        .hoverAction {
+            cursor: pointer;
+        }
+        .mb {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>게시판</h2>
+    <table width="800px">
+        <tr>
+            <th width="50px">게시물 번호</th>
+            <th width="150px">작성자</th>
+            <th >게시글 제목</th>
+        </tr>
+    </table>
+
+</body>
+<script>
+    const BACKEND_URL='https://jsonplaceholder.typicode.com/posts/'
+
+    const moveDetail =async (id)=>{
+                location.href = `./practice_axios_detail.html?postId=${id}`
+            }
+
+
+    const loadPost = async ()=>{
+            try{
+                const result = await axios(BACKEND_URL,{
+                    method:'GET'
+                })
+                const results = await axios.get(BACKEND_URL)
+                console.log(results)
+                const twenty_results = results.data.slice(0,20)
+                const $table  = document.querySelector('table')
+                const posts = twenty_results.map((post) => {
+                    let userName = "";
+                    if (post.userId === 1) {
+                        userName = 'dong';
+                    } else if (post.userId === 2) {
+                        userName = 'yes';
+                    } else {
+                        userName = post.userId;
+                    }
+                    return `
+                    <tr class='hoverAction mb' onClick='moveDetail(${post.id});'>
+                        <td>${post.id}</td>
+                        <td>${userName}</td>
+                        <td>${post.title}</td>
+                    </tr>
+                    `;
+                }).join("");
+                // // 1번째
+                $table.insertAdjacentHTML('beforeend',posts)
+                // // // 2번째
+                // $table.innerHTML += posts
+                // //3번째
+                // for (let post of ten_results){
+                //     const tr = document.createElement('tr')
+                //     tr.innerHTML=`
+                //     <td>${post.title}</td>
+                //         <td>${post.body}</td>
+                //     `
+                //     $table.append(tr)
+                //     //append의 매개변수에는 element가 들어가야함
+                // }
+                // //기존 innerHTML을 그대로 놔두고 이어서 추가
+                // /*axios -> backend request -> response*/
+                // // 컨피그는 디버깅할때 주로 사용
+            }
+            catch(err){
+                // errorHandle(err.message,err.response.status)
+                console.log(err)
+            }
+        }
+        loadPost()
+</script>
+</html>

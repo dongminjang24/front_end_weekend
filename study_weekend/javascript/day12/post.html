@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>POST</title>
+</head>
+<body>
+    <h2>상세보기</h2>
+    <div id="title"></div>
+    <div id="content"></div>
+
+    <table>
+        <tr>
+            <th>이메일</th>
+            <th>내용</th>
+        </tr>
+    </table>
+
+
+    <script>    
+        // 리스트 페이지 location.href = `/detail.html?postidx=${postIdx}&userIdx=${userId}` = /detail.html
+        // ?(쿼리스트링 시작) &(and)
+        // 쿼리스트링은 주소에 영향을 끼치 않으며 일종의 부가정보로만 사용
+
+        const BACKEND_URL='https://jsonplaceholder.typicode.com/'
+
+
+        const loadPost = async ()=>{
+            try{
+                // const result = await axios(BACKEND_URL,{
+                //     method:'GET'
+                // })
+                const results = await axios.get(BACKEND_URL)
+                console.log(results)
+                const ten_results = results.data.slice(0,10)
+                const $table  = document.querySelector('table')
+                const posts = ten_results.map((post)=>
+                    `
+                    <tr>
+                        <td>${post.title}</td>
+                        <td>${post.body}</td>
+                    </tr>
+                    `
+                ).join("")
+                // 1번째
+                $table.insertAdjacentHTML('beforeend',posts)
+                // // 2번째
+                $table.innerHTML += posts
+                //3번째
+                for (let post of ten_results){
+                    const tr = document.createElement('tr')
+                    tr.innerHTML=`
+                    <td>${post.title}</td>
+                        <td>${post.body}</td>
+                    `
+                    $table.append(tr)
+                    //append의 매개변수에는 element가 들어가야함
+                }
+                //기존 innerHTML을 그대로 놔두고 이어서 추가
+                /*axios -> backend request -> response*/
+                // 컨피그는 디버깅할때 주로 사용
+            }
+            catch(err){
+                // errorHandle(err.message,err.response.status)
+                console.log(err)
+            }
+        }
+        loadPost()
+
+
+        const searchParams = new URLSearchParams(location.search)
+        const postId = searchParams.get('postId')
+        console.log(postId)
+
+        // const BACKEND_URL = 'https://jsonplaceholder.typicode.com'
+
+        axios.get(BACKEND_URL+`posts/${postId}`).then((res)=> console.log(res))
+        axios.get(BACKEND_URL+`comments?postId=${postId}`).then((res)=>console.log(res))
+    </script>
+    </body>
+</html>
