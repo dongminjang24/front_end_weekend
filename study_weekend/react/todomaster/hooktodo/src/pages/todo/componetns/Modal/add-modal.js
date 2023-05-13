@@ -5,14 +5,14 @@ import {
     modalBackGround,
 } from "../../../../styles/common";
 
-const TodoAddModal = ({onAddToDo})  => {
+const TodoAddModal = ({onAddToDo,onClose})  => {
 
     return (
         <S.Wrapper>
-            <S.Form>
+            <S.Form onSubmit={onAddToDo}>
                 <S.Title>
                     <span>ADD TODO LIST</span>
-                    <button>x</button>
+                    <button type="button" onClick={onClose}>x</button>
                 </S.Title>
                 <S.Content>
                     <input placeholder="제목을 입력해주세요" />

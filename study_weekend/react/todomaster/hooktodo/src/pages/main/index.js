@@ -32,7 +32,7 @@ const MainPage = () => {
                     SIGN
                 </S.SignUpHeader>
             </S.Header>
-            {isFormLogin ? <SignInForm /> : <SignUpForm />}
+            {isFormLogin ? <SignInForm /> : <SignUpForm  setIsFormLogin={setIsFormLogin}/>}
         </S.Container>
     );
 };

@@ -7,10 +7,40 @@ import TodoAddModal from "./componetns/Modal/add-modal";
 import TodoList from "./componetns/List/todo-list";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useState } from "react";
 const TodoPage = () => {
     const params = useParams();
     console.log(params);
+    const [isAddTodoModal,setIsAddTodoModal]= useState(false)
+
+    const handleOpenTodoModal = () =>{
+        setIsAddTodoModal(true)
+    }
+    const handleCloseTodoModal = ()=>{
+        setIsAddTodoModal(false)
+    }
+    // => 커스텀 훅 제작 prev를 통해서
+
+    const [todoList,setTodoList] = useState([
+        {
+            id: 1,
+            title: "example1",
+            content: "content1",
+            state: false,
+        },
+        {
+            id: 2,
+            title: "example2",
+            content: "content2",
+            state: false,
+        },
+        {
+            id: 3,
+            title: "example3",
+            content: "content3",
+            state: false,
+        },
+    ])
 
     /** 
      * 
@@ -49,21 +79,20 @@ const TodoPage = () => {
 
     return (
         <>
-            <TodoAddModal onAddToDo={showTodoToastMessage}/>
-            <S.Wrapper>
-                <S.Container>
-                    <S.Title>List</S.Title>
-                    <S.Content>
-                        <TodoList />
-                    </S.Content>
-                    <S.ButtonBox>
-                        <BasicButton variant={"primary"} size={"full"}>
-                            추가
-                        </BasicButton>
-                    </S.ButtonBox>
-                </S.Container>
-            </S.Wrapper>
-            <ToastContainer {...toastOption} />
+        {isAddTodoModal && <TodoAddModal onAddTodo={showTodoToastMessage} onClose={handleCloseTodoModal} />}            <S.Wrapper>
+            <S.Container>
+                <S.Title>List</S.Title>
+                <S.Content>
+                    <TodoList todoList={todoList} />
+                </S.Content>
+                <S.ButtonBox>
+                    <BasicButton variant={"primary"} size={"full"} onClick={handleOpenTodoModal}>
+                        추가
+                    </BasicButton>
+                </S.ButtonBox>
+            </S.Container>
+        </S.Wrapper>
+        <ToastContainer {...toastOption} />
         </>
     );
 };

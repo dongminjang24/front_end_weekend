@@ -1,8 +1,8 @@
 import Button from "./style";
 
-const BasicButton = ({ size, shape, variant, children,disabled, ...rest }) => {
+const BasicButton = ({ size, shape, variant, children,disabled,onClick, ...rest }) => {
     return (
-        <Button size={size} shape={shape} variant={variant} disabled={disabled} {...rest}>
+        <Button size={size} shape={shape} variant={variant} disabled={disabled} onClick={onClick} {...rest}>
             {children}
         </Button>
     );
