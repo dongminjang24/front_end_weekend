@@ -5,7 +5,6 @@ const useWarning = (email,password,passwordConfirm) => {
     const [emailPc,setCheckEmail] = useState()
     const [passwordPc,setCheckPassword] = useState()
     const [passwordConfirmPc, setPasswordConfirmPc] = useState()
-    const [isDisabled, setIsDisabled] = useState(true);
     useEffect(()=>{
 
         if (email.length===0) {
