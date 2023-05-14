@@ -2,9 +2,43 @@ import styled from "styled-components";
 import { flexAlignCenter, flexCenter } from "../../../../styles/common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faBan, faPen } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import useInput from "../../../../hooks/use-input";
+import useInputs from "../../../../hooks/use-inputs";
+const OneTodo = ({ todo,handleUpdateTodo, handleDeleteTodo }) => {
+    /*
+    * @Params: {}
+    *  @TODO :
+    * form 으로 바꾸는 거로 수정
+    * 
+    * */
 
-const OneTodo = ({ todo }) => {
-    const { state, title, content } = todo;
+    // const [{ OneTitle, OneContent }, onChangeForm,setValues] = useInputs({
+    //     OneTitle: "",
+    //     OneContent: "",
+       
+    // });
+    const { id,state, title, content } = todo;  //투두에 데이터가 너무 많거나 하면 그렇게 하면됨
+
+    const [editContent,onChangeEditContent,setValue] = useInput(content);
+
+
+    // const [editTitle,onChangeEditTitle] = useInput();
+
+    // const [isE] = useState();
+    const [isEditMode,setIsEditMode] = useState(false);
+
+    useEffect(() => {
+        setValue(content);
+    }, [content]);
+
+    const handleSetIsEditMode = ()=>{
+       if(!isEditMode) return setIsEditMode(true)
+       handleUpdateTodo(id,editContent)
+       setIsEditMode(false)
+    }
+// 생각을 해보자.
+// 삭제를 하고나서 다음껄 에딧하면 그전의 editContent가 나와 그렇다는 건 editContent가 갱신이 안된것
 
     return (
         <S.Wrapper state={state}>
@@ -12,15 +46,32 @@ const OneTodo = ({ todo }) => {
                 <S.StateBox state={state}>
                     <FontAwesomeIcon icon={faCheck} />
                 </S.StateBox>
-                <S.Title state={state}>
+                <S.Title  state={state}>
                     {title}
+                {/* {isEditMode ? <textarea name='OneTitle' value={OneTitle}
+                onChange={onChangeForm}
+                ></textarea>: (OneTitle=== ''? title : OneTitle)} */}
                     <div>
-                        <FontAwesomeIcon icon={faPen} />
-                        <FontAwesomeIcon icon={faBan} />
+                        <FontAwesomeIcon icon={faPen} onClick={handleSetIsEditMode}/>
+                        <FontAwesomeIcon icon={faBan}  onClick={()=>{handleDeleteTodo(id)
+                    }
+                        
+                        }/>
                     </div>
                 </S.Title>
             </S.Header>
-            <S.Content state={state}>{content}</S.Content>
+            <S.Content state={state}>
+            {isEditMode ? (
+            <textarea
+                value={editContent}
+                onChange={onChangeEditContent}
+            ></textarea>
+        ) : (
+          content
+        )}
+               
+                {/*(OneContent=== ''? content : OneContent)*/}
+            </S.Content>
         </S.Wrapper>
     );
 };

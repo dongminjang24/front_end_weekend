@@ -8,6 +8,9 @@ import TodoList from "./componetns/List/todo-list";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
+
+
+
 const TodoPage = () => {
     const params = useParams();
     console.log(params);
@@ -41,6 +44,7 @@ const TodoPage = () => {
             state: false,
         },
     ])
+    
 
     /** 
      * 
@@ -59,18 +63,59 @@ const TodoPage = () => {
      * 
      */
 
-    const addTodo = () => {
-        return new Promise((resolve) => setTimeout(resolve, 3000))
+    const AddTodo = (title,content) => {
+        return new Promise((resolve) => setTimeout(()=>{
+            const newTodo ={
+                id:Math.floor(Math.random()*100000),
+                state:false,
+                title,
+                content
+            }
+            resolve(newTodo)
+        }, 3000)).then((todo)=>{
+            console.log(todo)
+            setTodoList([todo,...todoList])
+            setIsAddTodoModal(false)
+        })
     }
 
-    const showTodoToastMessage = (e) => { 
-        e.preventDefault()
-        toast.promise(addTodo, {
+    const showTodoToastMessage = (event) => { 
+        event.preventDefault()
+        const title = event.target.title.value;
+        const content = event.target.content.value;
+
+        toast.promise(AddTodo(title,content), {
             pending: 'TODO LOADING',
             success: "TODO SUCEESS",
             error: "TODO ERROR"
         }) 
     };
+    // const AddTodo = (title, content) => {
+    //     return new Promise((resolve) => setTimeout(() => {
+    //         const newTodo = {
+    //             id: Math.floor(Math.random() * 100000),
+    //             state: false,
+    //             title,
+    //             content,
+    //         }
+    //         resolve(newTodo)
+    //     }, 3000)).then((todo)=> {
+    //         console.log(todo)
+    //         setTodoList([todo, ...todoList])
+    //         setIsAddTodoModal(false)
+    //     })
+    // }
+
+    // const showTodoToastMessage = (e) => { 
+    //     e.preventDefault()
+    //     const title = e.target.title.value;
+    //     const content = e.target.content.value;
+    //     toast.promise(AddTodo(title, content), {
+    //         pending: 'TODO LOADING',
+    //         success: "TODO SUCEESS",
+    //         error: "TODO ERROR"
+    //     }) 
+    // };
     
     const toastOption = {
         autoClose : 2000,
@@ -79,11 +124,12 @@ const TodoPage = () => {
 
     return (
         <>
-        {isAddTodoModal && <TodoAddModal onAddTodo={showTodoToastMessage} onClose={handleCloseTodoModal} />}            <S.Wrapper>
+        {isAddTodoModal && <TodoAddModal onAddTodo={showTodoToastMessage} onClose={handleCloseTodoModal} />}
+        <S.Wrapper>
             <S.Container>
                 <S.Title>List</S.Title>
                 <S.Content>
-                    <TodoList todoList={todoList} />
+                    <TodoList todoList={todoList} setTodoList={setTodoList} />
                 </S.Content>
                 <S.ButtonBox>
                     <BasicButton variant={"primary"} size={"full"} onClick={handleOpenTodoModal}>
