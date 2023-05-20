@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import { useReducer, useState } from 'react';
 import reducer from './reducer/counter.reducer';
+import User from './components';
+import UserStoreProvider from './context/user';
 function App() {
   const [count,dispatch] = useReducer(reducer,0)
 
@@ -24,11 +26,15 @@ function App() {
     }
 
   return (
-    <div>
-      <button onClick={handleIncreaseCont}>+</button>
-      {count}
-      <button  onClick={handleDecreaseCont}>-</button>
-    </div>
+    <UserStoreProvider>
+      <div>
+          <User></User>
+        {/* <button onClick={handleIncreaseCont}>+</button>
+        {count}
+        <button  onClick={handleDecreaseCont}>-</button> */}
+      </div>
+    </UserStoreProvider>
+
   );
 }
 

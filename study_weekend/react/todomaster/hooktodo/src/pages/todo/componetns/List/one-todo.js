@@ -32,16 +32,17 @@ const OneTodo = ({ todo,handleUpdateTodo, handleDeleteTodo }) => {
         setValue(content);
     }, [content]);
 
-    const handleSetIsEditMode = ()=>{
+    const handleSetIsEditMode = (e)=>{
+        e.preventDefault()
        if(!isEditMode) return setIsEditMode(true)
-       handleUpdateTodo(id,editContent)
+       handleUpdateTodo(id,e.target.content.value)
        setIsEditMode(false)
     }
 // 생각을 해보자.
 // 삭제를 하고나서 다음껄 에딧하면 그전의 editContent가 나와 그렇다는 건 editContent가 갱신이 안된것
 
     return (
-        <S.Wrapper state={state}>
+        <S.Wrapper onSubmit={handleSetIsEditMode} state={state}>
             <S.Header>
                 <S.StateBox state={state}>
                     <FontAwesomeIcon icon={faCheck} />
@@ -52,19 +53,21 @@ const OneTodo = ({ todo,handleUpdateTodo, handleDeleteTodo }) => {
                 onChange={onChangeForm}
                 ></textarea>: (OneTitle=== ''? title : OneTitle)} */}
                     <div>
-                        <FontAwesomeIcon icon={faPen} onClick={handleSetIsEditMode}/>
-                        <FontAwesomeIcon icon={faBan}  onClick={()=>{handleDeleteTodo(id)
-                    }
-                        
-                        }/>
+                        {/* <button onClick={(e)=>{handleSetIsEditMode(e)}}> */}
+                        <button>
+                            <FontAwesomeIcon icon={faPen}/>
+                        </button>
+                        <button  onClick={()=>{handleDeleteTodo(id)}}>
+                            <FontAwesomeIcon icon={faBan} />
+                        </button>
                     </div>
                 </S.Title>
             </S.Header>
             <S.Content state={state}>
             {isEditMode ? (
-            <textarea
-                value={editContent}
-                onChange={onChangeEditContent}
+            <textarea name={"content"}
+                // value={editContent}
+                // onChange={onChangeEditContent}
             ></textarea>
         ) : (
           content
@@ -77,7 +80,7 @@ const OneTodo = ({ todo,handleUpdateTodo, handleDeleteTodo }) => {
 };
 export default OneTodo;
 
-const Wrapper = styled.li`
+const Wrapper = styled.form`
     width: 100%;
     background-color: ${({ theme }) => theme.PALETTE.white};
     border: 1px solid #999;

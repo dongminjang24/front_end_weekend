@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import SignInForm from "./componetns/SignIn/SignIn";
-import SignUpForm from "./componetns/SignUp/Signup";
-import { flexCenter } from "../../styles/common";
-import { PALETTE } from "../../styles/theme";
+import SignInForm from "./components/SignIn/SignIn";
+import SignUpForm from "./components/SignUp/Signup";
+import { flexCenter } from "styles/common";
+import { PALETTE } from "styles/theme";
 import { useState } from "react";
 
 const MainPage = () => {
