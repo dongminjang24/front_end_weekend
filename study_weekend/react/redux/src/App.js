@@ -3,6 +3,7 @@ import "./App.css";
 import { Provider, useDispatch } from "react-redux";
 import reduxConfig from "./store/store";
 import { useSelector } from "react-redux";
+import User from "./components/user";
 function App() {
   /* 리덕스에서는 provider가 하나만 있으면 됨. 
   리덕스에서는 콘텍스트와 달리 (하나의 콘텍스트마다 하나의 프로바이더 생성) 
@@ -59,14 +60,14 @@ export const rootReducer = combineReducers({ user });
 9.
 */
   const store = reduxConfig();
-  const userLlist = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  // const userLlist = useSelector((state) => state.user);
+  // const dispatch = useDispatch();
   //rootReducer에 등록된 키값을 이용하여 상태만 선택하여 전역상태를 가져와 사용
   //위 유저리스트는 사용이 불가능, 프로바이더에 감싸져 있기 전에 사용했기 때문에 ,
   // 하위 컴포넌트에 사용해야만 사용가능
   return (
     <Provider store={store}>
-      <div className="App"></div>;
+      <User />
     </Provider>
   );
 }

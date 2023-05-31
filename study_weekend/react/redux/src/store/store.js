@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import { rootReducer } from "../../reducer";
+import { rootReducer } from "../reducer";
 const reduxConfig = () => {
   const store = createStore(rootReducer);
   /* 왜 함수형으로 만들었을까?
