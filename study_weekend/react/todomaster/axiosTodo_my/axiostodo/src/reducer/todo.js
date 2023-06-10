@@ -35,7 +35,7 @@ export const todoSlice = createSlice({
   initialState,
 
   extraReducers: (builder) => {
-    builder.addCase(getTodo.pending, (state, action) => {
+    builder.addCase(getTodo.pending, (state) => {
       // 로딩중이라고 생각하면 됨
       // state.todos = action.payload;
       state.getTodoState.loading = true;
