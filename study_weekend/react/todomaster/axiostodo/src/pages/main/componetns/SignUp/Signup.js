@@ -19,7 +19,6 @@ const SignUpForm = ({ setIsFormLogin }) => {
     setIsPasswordConfirm(true);
   }, [password, passowrdConfirm]);
 
-  // const { disalbed, errors } = useAuthValidation(password, email)
 
   const handleSignUpSumbit = async (e) => {
     e.preventDefault();
@@ -29,7 +28,6 @@ const SignUpForm = ({ setIsFormLogin }) => {
     alert("축하합니다. 회원가입이 완료되었습니다");
     setIsFormLogin(true);
   };
-
   return (
     <S.Form>
       <S.InputBox>
