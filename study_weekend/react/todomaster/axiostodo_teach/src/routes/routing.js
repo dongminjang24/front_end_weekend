@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        element: <PrivateRoute></PrivateRoute>,
+        element: <PrivateRoute></PrivateRoute>,//hoc를 의미
         children: [{ path: "/todo/:todoId", element: <TodoPage /> }],
       },
     ],
